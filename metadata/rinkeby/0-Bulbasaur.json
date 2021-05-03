@@ -1,0 +1,63 @@
+{
+    "name": "Bulbasaur",
+    "description": "A powerful Grass and Poison type Pokemon!",
+    "image": "https://ipfs.io/ipfs/QmY6QxNmXLgkWPL5MLu1RwwN2bWrzADThywrngM4NZriih",
+    "attributes": [
+        {
+            "trait_type": "nickname",
+            "value": "Bulbasaur"
+        },
+        {
+            "trait_type": "Level",
+            "value": 57
+        },
+        {
+            "trait_type": "HP",
+            "value": 135
+        },
+        {
+            "trait_type": "Atk",
+            "value": 75
+        },
+        {
+            "trait_type": "Def",
+            "value": 74
+        },
+        {
+            "trait_type": "SpA",
+            "value": 85
+        },
+        {
+            "trait_type": "SpD",
+            "value": 96
+        },
+        {
+            "trait_type": "Spe",
+            "value": 71
+        },
+        {
+            "trait_type": "Ability",
+            "value": "None"
+        },
+        {
+            "trait_type": "Nature",
+            "value": "Naive"
+        },
+        {
+            "trait_type": "Shiny",
+            "value": false
+        },
+        {
+            "trait_type": "Item",
+            "value": "None"
+        },
+        {
+            "trait_type": "Type1",
+            "value": "Grass"
+        },
+        {
+            "trait_type": "Type2",
+            "value": "Poison"
+        }
+    ]
+}
