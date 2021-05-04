@@ -4,13 +4,13 @@ OPENSEA_FORMAT = "https://testnets.opensea.io/assets/{}/{}"
 METADATA_MAP = 'MAP.json'
 
 
-def fund(nft_contract):
+def fund(nft_contract, amount=1):
     dev = accounts.add(config["wallets"]["from_key"])
     # Get the most recent PriceFeed Object
     interface.LinkTokenInterface(
         config["networks"][network.show_active()]["link_token"]
     ).transfer(
-        nft_contract, config["networks"][network.show_active()]["fee"], {
+        nft_contract, config["networks"][network.show_active()]["fee"] * amount, {
             "from": dev}
     )
 

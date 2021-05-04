@@ -4,9 +4,10 @@ from scripts.helpful_scripts import fund
 import asyncio
 import json
 
+STATING_ROW = 3
+
 
 def main():
-    print(config["wallets"]["from_key"])
     dev = accounts.add(config["wallets"]["from_key"])
     print(network.show_active())
     # publish_source = True if os.getenv("ETHERSCAN_TOKEN") else False # Currently having an issue with this
@@ -26,7 +27,7 @@ async def createBaseStats(pokemon, dev):
 def get_tasks(pokemon, dev):
     tasks = []
     index = 0
-    with open('./metadata/pokemon.csv', 'r') as file:
+    with open('./metadata/151pokemon.csv', 'r') as file:
         for row in file:
             print(row)
             index = index + 1

@@ -23,9 +23,9 @@ contract PokemonBaseStatData is Ownable {
     constructor()
     public 
     {
-        createBaseStatPokemon(1,"Bulbasaur","Grass","Poison",318,45,49,49,65,65,45);
-        createBaseStatPokemon(2,"Ivysaur","Grass","Poison",405,60,62,63,80,80,60);
-        createBaseStatPokemon(3,"Venusaur","Grass","Poison",525,80,82,83,100,100,80);
+        // createBaseStatPokemon(1,"Bulbasaur","Grass","Poison",318,45,49,49,65,65,45);
+        // createBaseStatPokemon(2,"Ivysaur","Grass","Poison",405,60,62,63,80,80,60);
+        // createBaseStatPokemon(3,"Venusaur","Grass","Poison",525,80,82,83,100,100,80);
         // createBaseStatPokemon(3,"Mega Venusaur","Grass","Poison",625,80,100,123,122,120,80);
         // createBaseStatPokemon(3,"Gigantamax Venusaur","Grass","Poison",525,80,82,83,100,100,80);
         // createBaseStatPokemon(4,"Charmander","Fire","None",309,39,52,43,60,50,65);
@@ -1116,5 +1116,9 @@ contract PokemonBaseStatData is Ownable {
         baseStats.spd = spd;
         baseStats.spe = spe;
         listOfPokemonNames.push(pokemonName);
+    }
+
+    function lengthOfListOfPokemonNames() public view returns(uint256){
+        return listOfPokemonNames.length;
     }
 }

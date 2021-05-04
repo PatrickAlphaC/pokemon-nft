@@ -8,6 +8,7 @@ contract Pokemon is ERC721, VRFConsumerBase, Ownable, PokemonBaseStatData {
     using SafeMathChainlink for uint256;
     mapping(bytes32 => address) public requestIdToSender;
     mapping(bytes32 => uint256) public requestIdToTokenId;
+
     event requestedPokemon(bytes32 indexed requestId); 
     event PokemonCreated(uint256 indexed tokenId); 
     bytes32 internal keyHash;
@@ -21,7 +22,7 @@ contract Pokemon is ERC721, VRFConsumerBase, Ownable, PokemonBaseStatData {
     string[] public natures;
     mapping(string => string) public pokemonNameToImageURI;
     // mapping(uint256 => moves) public tokenIdToMoves;
-    mapping(uint256 => uint256[]) public tokenIdToRNGNumbers;
+    mapping(uint256 => uint256) public tokenIdToRNGNumber;
 
     // struct moves {
     //     string move1;
@@ -58,6 +59,13 @@ contract Pokemon is ERC721, VRFConsumerBase, Ownable, PokemonBaseStatData {
             emit requestedPokemon(requestId);
     }
 
+    // function createSpecificPokemon(uint256 userProvidedSeed, string memory pokemonName) onlyOwner
+    //     public returns (bytes32){
+    //         bytes32 requestId = requestRandomness(keyHash, link_fee, userProvidedSeed);
+    //         requestIdToSender[requestId] = msg.sender;
+    //         emit requestedPokemon(requestId);
+    // }
+
     function setIvs(uint256[] memory RNGNumbers, string memory pokemonName, uint256 tokenId) internal {
         (string memory type1, string memory type2) = getTypeFromName(pokemonName);
         PokemonBaseStats memory baseStats = pokemonNameToPokemonBaseStats[pokemonName];
@@ -77,18 +85,17 @@ contract Pokemon is ERC721, VRFConsumerBase, Ownable, PokemonBaseStatData {
     function fulfillRandomness(bytes32 requestId, uint256 randomNumber) internal override {
         address owner = requestIdToSender[requestId];
         // string memory tokenURI = pokemonToTokenURI[requestId];
-        uint256 newUniquePokemonID = tokenCounter;
-        requestIdToTokenId[requestId] = newUniquePokemonID;
-        _safeMint(owner, newUniquePokemonID);
-        uint256[] memory RNGNumbers = getManyRandomNumbers(randomNumber, 11);
-        tokenIdToRNGNumbers[newUniquePokemonID] = RNGNumbers;
+        uint256 tokenId = tokenCounter;
+        requestIdToTokenId[requestId] = tokenId;
+        _safeMint(owner, tokenId);
+        tokenIdToRNGNumber[tokenId] = randomNumber;
         tokenCounter = tokenCounter + 1;
     }
 
-    function updateCreatedPokemon(uint256 tokenId) public {
-        uint256[] memory RNGNumbers = tokenIdToRNGNumbers[tokenId];
-        uint256 pokemonNameIndex = (RNGNumbers[7] % listOfPokemonNames.length);
-        string memory pokemonName = listOfPokemonNames[pokemonNameIndex];
+    function updateCreatedPokemon(uint256 tokenId, string memory pokemonName) public onlyOwner {
+        uint256[] memory RNGNumbers = getManyRandomNumbers(tokenIdToRNGNumber[tokenId], 11);
+        // uint256 pokemonNameIndex = (RNGNumbers[7] % listOfPokemonNames.length);
+        // string memory pokemonName = listOfPokemonNames[pokemonNameIndex];
         (string memory type1, string memory type2) = getTypeFromName(pokemonName);
         string memory nature = natures[(RNGNumbers[8] % natures.length)];
         bool shiny = false;
@@ -121,7 +128,7 @@ contract Pokemon is ERC721, VRFConsumerBase, Ownable, PokemonBaseStatData {
         return (baseStats.type1, baseStats.type2);
     }
 
-    function setBattleStats(string memory pokemonName, uint256 tokenId) public {
+    function setBattleStats(string memory pokemonName, uint256 tokenId) public onlyOwner{
         // HP = floor(0.01 x (2 x Base + IV + floor(0.25 x EV)) x Level) + Level + 10
         // we bump everything up by 100, then divide by 100 at the end
         // Other Stats = floor(0.01 x (2 x Base + IV + floor(0.25 x EV)) x Level) + 5) x Nature

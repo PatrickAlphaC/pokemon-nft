@@ -1,5 +1,6 @@
 # Pokemon NFTs
 
+Matic Contract: https://explorer-mainnet.maticvigil.com/address/0x7e039939FEA5a979e6366cb905d407C4bc92FB59/transactions
 
 <br/>
 <p align="center">

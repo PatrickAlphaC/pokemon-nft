@@ -15,7 +15,7 @@ PINATA_BASE_URL = 'https://api.pinata.cloud/pinning/pinFileToIPFS'
 def main():
     print("Working on " + network.show_active())
     pokemon = Pokemon[len(Pokemon) - 1]
-    number_of_pokemon = pokemon.tokenCounter()
+    number_of_pokemon = 151
     print(
         "The number of Pokémon you've deployed is: "
         + str(number_of_pokemon)
@@ -67,12 +67,10 @@ def write_metadata(token_ids, nft_contract):
         print(f"File {metadata_file_name} created! Uploading to Pinata...")
         response = upload_to_pinata(metadata_file_name)
         map_file_name = f"./metadata/{network.show_active()}/{METADATA_MAP}"
+        json_map = {}
+        with open(map_file_name, "r") as map_file:
+            json_map = json.load(map_file)
         with open(map_file_name, "w+") as map_file:
-            json_map = {}
-            try:
-                json_map = json.load(map_file)
-            except:
-                pass
             print(f"Updating {map_file_name}")
             json_map[end_name] = IPFS_URI.format(
                 response.json()['IpfsHash'])
@@ -101,5 +99,6 @@ def get_pokemon_image_uri(pokemon_name, pokemon_number):
         string_pokemon_number = str(int(pokemon_number))
         while (len(string_pokemon_number) < 3):
             string_pokemon_number = "0" + string_pokemon_number
+
         hash = pokemon_to_ipfs[f'{string_pokemon_number}{pokemon_name}.png']
         return hash

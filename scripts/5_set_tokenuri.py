@@ -10,7 +10,7 @@ import json
 def main():
     print("Working on " + network.show_active())
     pokemon = Pokemon[len(Pokemon) - 1]
-    number_of_pokemon = pokemon.tokenCounter()
+    number_of_pokemon = 152
     print(f"The number of Pokemon you've deployed is: {number_of_pokemon}")
     for token_id in range(number_of_pokemon):
         tokenuri = get_token_uri(token_id, pokemon)

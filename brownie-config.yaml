@@ -17,6 +17,11 @@ dotenv: .env
 # set a custom mnemonic for the development network
 networks:
   default: development
+  matic:
+    vrf_coordinator: '0x3d2341ADb2D31f1c5530cDC622016af293177AE0'
+    link_token: '0xb0897686c545045aFc77CF20eC7A532E3120E0F1'
+    keyhash: '0xf86195cf7690c55907b2b611ebb7343a6f649bff128701cc542f0569e2c549da'
+    fee: 100000000000000
   development:
     vrf_coordinator: '0xb3dCcb4Cf7a26f6cf6B120Cf5A73875B7BBc655B'
     link_token: '0x01be23585060835e02b77ef475b0cc51aa1e0709'
