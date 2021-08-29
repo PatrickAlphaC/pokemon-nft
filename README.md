@@ -68,7 +68,7 @@ AND THEN RUN `source .env` TO ACTIVATE THE ENV VARIABLES
 Or you can run the above in your shell. 
 
 
-# Useage
+# Usage
 ```
 brownie run scripts/1_deploy_pokemon.py --network rinkeby
 ```
